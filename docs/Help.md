@@ -12,7 +12,8 @@ Quick links:
 1. Open **Winslop.exe**
 2. Use the **tabs** to switch between areas:
    - **Windows**: system tweaks (feature tree)
-   - **Applications**: app scan/uninstall (if enabled in your build)
+   - **Applications**: app debloater (scan installed apps and remove selected ones)
+   - **Install**: Install apps via winget
    - **Tools**: additional modules/extensions
 
 3. Use **Inspect system** to scan/analyze.
@@ -27,20 +28,47 @@ Quick links:
 
 ### Top bar
 - **Start button (☰)**  
-  Opens the main menu (selection actions, import/export, plugins, etc. depending on your build).
+Opens the main menu (selection actions, plugin/extension management, logs — varies by build).
 - **Search**  
   Filters the current view (e.g., feature tree).  
   Tip: clear the search to show all items again.
 - **Refresh**  
 Updates the view and clears the log in the log window.
 
+### Profile selector
+
+- **Select profile… (dropdown)**  
+  Loads a preset selection of tweaks/actions (a “profile”).  
+  Use this to quickly apply a known configuration without manually checking every item.
+
+  **Typical usage:**
+  1. Choose a profile from the dropdown
+  2. Click **Inspect system** (optional but recommended)
+  3. Click **Apply selected changes**
+
+  **Notes:**
+  - Switching profiles usually updates which items are checked in the tree.
+  - Available profiles depend on your build / included profiles.
+  - You can export your current checked items to a simple `.sel` text file.
+  - You can import a `.sel` file to restore a selection quickly.
+
+Some builds also support auto-loading `selection.sel` from the same folder as the executable (opt-in prompt).
+
 ### Tabs
 - **Windows**  
   Shows the feature/plugin tree. Items are grouped (e.g., *Issues*, *System*, *MS Edge*, *Privacy*…).
-- **Applications**  
+- **Apps**  
   Scans installed apps and allows uninstalling selected ones (if present).
+- **Install** (winget)
+Installs applications using winget.
+
+  **Typical flow:**
+   1. Search/browse available winget apps (depends on your UI)
+   2. Select what you want to install
+   3. Apply selected changes (install)
 - **Tools**  
-  Hosts extension views/modules.
+Extra modules and extension views live here.
+What you see depends on which extensions are included/installed.
 
 ### Feature tree (Windows tab)
 - Checkboxes represent individual tweaks.  
@@ -80,16 +108,6 @@ Right-click any node in the **Windows** feature tree to open the context menu:
   Scans/analyzes the current tab content (e.g., detects system state, checks plugins, scans apps).
 - **Apply selected changes**  
   Applies all currently checked items in the active tab (e.g., apply tweaks / uninstall selected apps).
----
-
-## Selection import/export (optional)
-
-If your build includes selection transfer:
-- You can export your current checked items to a simple `.sel` text file.
-- You can import a `.sel` file to restore a selection quickly.
-
-Some builds also support auto-loading `selection.sel` from the same folder as the executable (opt-in prompt).
-
 ---
 
 ## Notes / Safety
