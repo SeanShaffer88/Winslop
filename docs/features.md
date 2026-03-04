@@ -358,32 +358,117 @@
 
 ## Privacy & Telemetry
 
-### Turn off Telemetry data collection
-**Info:** This feature will turn off telemetry data collection and prevent the data from being sent to Microsoft.  
-**Registry 1:** `HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DataCollection` → `AllowTelemetry = 0`  
-**Registry 2:** `HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\DiagTrack` → `Start = 4`  
-**Undo:** `AllowTelemetry = 1`, `Start = 2`
 
 ### Disable activity history
-**Info:** Disable activity history (prevents Windows from tracking and storing your activity)  
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables activity history (prevents Windows from tracking and storing your activity).  
 **Registry:** `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System`  
 **Value:** `PublishUserActivities`  
 **Recommended:** `0`  
 **Undo:** `1`
 
+### Disable App Launch Tracking
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables tracking of app launches (reduces Start/Search personalization like “most used apps”).  
+**Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced`  
+**Value:** `Start_TrackProgs`  
+**Recommended:** `0`  
+**Undo:** Deletes `Start_TrackProgs` (returns to Windows default behavior)
+
+### Reduce Diagnostic Data (Basic)
+**Supported on:** Windows 10, Windows 11  
+**Info:** Sets diagnostic data level to **Basic/Required (1)** across multiple registry/policy locations (where applicable).  
+**Recommended:** `1`  
+**Undo:** Restores a more permissive/default-ish state (sets some values to `3` and removes policy values where possible)
+
+**Registry changes (Do):**
+- `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack`  
+  - `ShowedToastAtLevel = 1`
+- `HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\DataCollection`  
+  - `AllowTelemetry = 1`
+- `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection` *(may require Admin)*  
+  - `AllowTelemetry = 1`
+- `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection`  
+  - `AllowTelemetry = 1`  
+  - `MaxTelemetryAllowed = 1`
+- `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection` *(may require Admin)*  
+  - `AllowTelemetry = 1`  
+  - `MaxTelemetryAllowed = 1`
+
+**Undo (details):**
+- Sets `ShowedToastAtLevel = 3`
+- Deletes policy values:  
+  - `HKCU\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry`  
+  - `HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry` *(may require Admin)*
+- Sets non-policy keys to `3` (`AllowTelemetry`, `MaxTelemetryAllowed`) where possible
+
 ### Disable location tracking
-**Info:** Disable location tracking (prevents Windows from accessing your location)  
+**Supported on:** Windows 10, Windows 11  
+**Info:** Prevents Windows from accessing your location.  
 **Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\LocationAndSensors`  
 **Value:** `LocationEnabled`  
 **Recommended:** `0`  
 **Undo:** `1`
 
+### Disable Lock Screen Slideshow
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables the lock screen slideshow option.  
+**Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager`  
+**Value:** `SlideshowEnabled`  
+**Recommended:** `0`  
+**Undo:** Deletes `SlideshowEnabled` (returns to Windows default behavior)
+
+### Disable Narrator Online Services
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables Narrator online services (cloud-backed features).  
+**Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Narrator\NoRoam`  
+**Value:** `OnlineServicesEnabled`  
+**Recommended:** `0`  
+**Undo:** Deletes `OnlineServicesEnabled` (returns to Windows default behavior)
+
+### Disable Online Speech Recognition
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables online speech recognition and disables input personalization via policy.  
+**Recommended:** `0`  
+**Undo:** Restores speech setting to `1` and removes policy values where possible
+
+**Registry changes (Do):**
+- `HKEY_CURRENT_USER\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy`  
+  - `HasAccepted = 0`
+- `HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\InputPersonalization`  
+  - `AllowInputPersonalization = 0`
+- `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\InputPersonalization` *(may require Admin)*  
+  - `AllowInputPersonalization = 0`
+
+**Undo (details):**
+- Sets `HasAccepted = 1`
+- Deletes policy values:  
+  - `HKCU\SOFTWARE\Policies\Microsoft\InputPersonalization\AllowInputPersonalization`  
+  - `HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization\AllowInputPersonalization` *(may require Admin)*
+
 ### Disable Privacy Settings Experience at sign-in
-**Info:** This feature will disable Privacy Settings Experience at sign-in.  
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables Privacy Settings Experience at sign-in (OOBE privacy prompts).  
 **Registry:** `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OOBE`  
 **Value:** `DisablePrivacyExperience`  
-**DoFeature sets:** `1`  
+**Recommended:** `1`  
 **Undo:** `0`
+
+### Prevent Silent App Installation
+**Supported on:** Windows 10, Windows 11  
+**Info:** Prevents silent background installation of suggested/promoted apps.  
+**Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager`  
+**Value:** `SilentInstalledAppsEnabled`  
+**Recommended:** `0`  
+**Undo:** `1`
+
+### Disable Spotlight on Lock Screen
+**Supported on:** Windows 10, Windows 11  
+**Info:** Disables rotating Windows Spotlight images on the lock screen.  
+**Registry:** `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager`  
+**Value:** `RotatingLockScreenEnabled`  
+**Recommended:** `0`  
+**Undo:** `1`
 
 ---
 
