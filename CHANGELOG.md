@@ -1,3 +1,5 @@
+Ref.: https://github.com/builtbybel/Winslop/discussions/36
+
 🎉 So after some experiments, frustrations, and a few choice words directed at Microslop's UI stack, Winslop ultimately stays true to its roots.
 
 **I need to vent about WinUI.**  
